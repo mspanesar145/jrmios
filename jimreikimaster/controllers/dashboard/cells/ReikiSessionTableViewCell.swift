@@ -32,8 +32,12 @@ class ReikiSessionTableViewCell: UITableViewCell {
         // Initialization code
         
         self.twentyMinutesView.dropGradientShadow();
+        self.twentyMinutesView.layer.cornerRadius = 30;
         self.fortyFiveMinutesView.dropGradientShadow();
+        self.fortyFiveMinutesView.layer.cornerRadius = 30;
         self.oneHourView.dropGradientShadow();
+        self.oneHourView.layer.cornerRadius = 30;
+
         self.numberOfDaysView.dropGradientShadow();
         
     }

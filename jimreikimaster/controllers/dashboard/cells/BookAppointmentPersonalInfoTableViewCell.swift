@@ -19,11 +19,19 @@ class BookAppointmentPersonalInfoTableViewCell: UITableViewCell, UITextViewDeleg
     @IBOutlet weak var genderLabelViewView: UIView!;
     @IBOutlet weak var addressTextFieldView: UIView!;
     @IBOutlet weak var descriptionTextFieldView: UIView!;
+    @IBOutlet weak var cityTextFieldView: UIView!;
+    @IBOutlet weak var stateTextFieldView: UIView!;
+    @IBOutlet weak var postalCodeTextFieldView: UIView!;
+    @IBOutlet weak var countyView: UIView!;
 
     @IBOutlet weak var nameTextField: UITextField!;
     @IBOutlet weak var genderLabel: UILabel!;
     @IBOutlet weak var addressTextField: UITextField!;
     @IBOutlet weak var descriptionTextField: UITextField!;
+    @IBOutlet weak var cityTextField: UITextField!;
+    @IBOutlet weak var stateTextField: UITextField!;
+    @IBOutlet weak var postalCodeTextField: UITextField!;
+    @IBOutlet weak var countryLabel: UILabel!;
 
     var bookAppointmentPersonalInfoDelegate : BookAppointmentPersonalInfoViewController!;
     
@@ -34,11 +42,15 @@ class BookAppointmentPersonalInfoTableViewCell: UITableViewCell, UITextViewDeleg
         self.secondOuterCircleView.circleViewWithBorder();
         self.secondInnerCirleView.circleView();
         self.thirdInnerCircleView.circleView();
-
+        
         nameTextFieldView.rounderCornerViewWithBorder();
         genderLabelViewView.rounderCornerViewWithBorder();
         addressTextFieldView.curvedCornerViewWithBorder();
         descriptionTextFieldView.curvedCornerViewWithBorder();
+        cityTextFieldView.curvedCornerViewWithBorder();
+        stateTextFieldView.curvedCornerViewWithBorder();
+        postalCodeTextFieldView.curvedCornerViewWithBorder();
+        countyView.curvedCornerViewWithBorder();
 
     }
 

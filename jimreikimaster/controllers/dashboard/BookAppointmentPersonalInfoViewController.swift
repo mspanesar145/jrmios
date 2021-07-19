@@ -8,10 +8,11 @@
 
 import UIKit
 
-class BookAppointmentPersonalInfoViewController: UIViewController {
+class BookAppointmentPersonalInfoViewController: UIViewController, PersonallInfoViewControllerProtocol {
 
     @IBOutlet weak var personalInfoTableView: UITableView!
     @IBOutlet weak var nextBtn: UIButton!;
+    var selectedCountry: CountryCodeService!;
 
     var healee: Healee!;
     
@@ -124,6 +125,27 @@ class BookAppointmentPersonalInfoViewController: UIViewController {
     @objc func descriptionTextFieldDidChange(_ textField: UITextField) {
         self.healee.description = textField.text;
     }
+    
+    @objc func cityTextFieldDidChange(_ textField: UITextField) {
+        self.healee.city = textField.text;
+    }
+    
+    @objc func stateTextFieldDidChange(_ textField: UITextField) {
+        self.healee.state = textField.text;
+    }
+    
+    @objc func countryViewPressed() {
+        let viewController = self.storyboard?.instantiateViewController(withIdentifier: "CountryListViewController") as! CountryListViewController;
+        viewController.personalInfoViewProtocolProtocol = self;
+        self.navigationController?.pushViewController(viewController, animated: true);
+    }
+    
+    func countryPressed(countryObject: CountryCodeService) {
+        self.selectedCountry = countryObject;
+        self.healee.country = countryObject.getName();
+        self.personalInfoTableView.reloadData();
+    }
+
 }
 
 extension BookAppointmentPersonalInfoViewController: UITableViewDelegate, UITableViewDataSource {
@@ -152,7 +174,15 @@ extension BookAppointmentPersonalInfoViewController: UITableViewDelegate, UITabl
         cell.nameTextField.addTarget(self, action: #selector(nameTextFieldDidChange(_:)), for: .editingChanged);
         cell.addressTextField.addTarget(self, action: #selector(addressTextFieldDidChange(_:)), for: .editingChanged);
         cell.descriptionTextField.addTarget(self, action: #selector(descriptionTextFieldDidChange(_:)), for: .editingChanged);
-
+        cell.cityTextField.addTarget(self, action: #selector(descriptionTextFieldDidChange(_:)), for: .editingChanged);
+        cell.stateTextField.addTarget(self, action: #selector(descriptionTextFieldDidChange(_:)), for: .editingChanged);
+        
+        let countryViewTapGesture = UITapGestureRecognizer.init(target: self, action: #selector(countryViewPressed));
+        cell.countyView.addGestureRecognizer(countryViewTapGesture);
+        
+        if (self.selectedCountry != nil) {
+            cell.countryLabel.text = self.selectedCountry.getName();
+        }
         return cell;
     }
     

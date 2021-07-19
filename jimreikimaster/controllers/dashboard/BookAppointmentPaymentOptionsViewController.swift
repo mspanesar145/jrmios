@@ -2,8 +2,8 @@
 //  BookAppointmentPaymentOptionsViewController.swift
 //  jimreikimaster
 //
-//  Created by Cenes_Dev on 03/10/2020.
-//  Copyright © 2020 Cenes_Dev. All rights reserved.
+//  Created by Mandeep on 03/10/2020.
+//  Copyright © 2020 Mandeep. All rights reserved.
 //
 
 import UIKit

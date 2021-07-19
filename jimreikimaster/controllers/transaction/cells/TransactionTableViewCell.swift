@@ -13,6 +13,12 @@ class TransactionTableViewCell: UITableViewCell {
     
     @IBOutlet weak var outerShadowView: UIView!;
     
+    @IBOutlet weak var titleLbl: UILabel!;
+    @IBOutlet weak var priceLebl: UILabel!;
+    @IBOutlet weak var dateBooked: UILabel!;
+    @IBOutlet weak var timeSlotBooked: UILabel!;
+
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

@@ -134,6 +134,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         currentTransaction.reikiService = reikiService;
         
         let viewController = self.storyboard?.instantiateViewController(withIdentifier: "ReikiSessionViewController") as! ReikiSessionViewController;
+        viewController.serviceId = reikiService.serviceId;
         self.navigationController?.pushViewController(viewController, animated: true);
     
     }

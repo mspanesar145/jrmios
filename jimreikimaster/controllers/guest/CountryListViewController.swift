@@ -11,6 +11,11 @@ import UIKit
 protocol SignupViewControllerProtocol {
     func countryPressed(countryObject: CountryCodeService);
 }
+
+protocol PersonallInfoViewControllerProtocol {
+    func countryPressed(countryObject: CountryCodeService);
+}
+
 class CountryListViewController: UIViewController {
 
     @IBOutlet weak var countryListTableView: UITableView!;
@@ -18,6 +23,7 @@ class CountryListViewController: UIViewController {
     var countriesDict: [String: [CountryCodeService]] = ["": []];
     var countryStrip: [String]!;
     var signupViewControllerProtocol: SignupViewControllerProtocol!;
+    var personalInfoViewProtocolProtocol: PersonallInfoViewControllerProtocol!;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,7 +135,11 @@ extension CountryListViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let countryObject = countriesDict[countryStrip[indexPath.section]]![indexPath.row];
-        self.signupViewControllerProtocol.countryPressed(countryObject: countryObject);
+        if (self.signupViewControllerProtocol != nil) {
+            self.signupViewControllerProtocol.countryPressed(countryObject: countryObject);
+        } else if (personalInfoViewProtocolProtocol != nil) {
+            self.personalInfoViewProtocolProtocol.countryPressed(countryObject: countryObject);
+        }
         self.navigationController?.popViewController(animated: false);
     }
 }

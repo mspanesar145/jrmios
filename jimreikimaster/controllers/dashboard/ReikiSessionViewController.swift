@@ -13,12 +13,16 @@ class ReikiSessionViewController: UIViewController {
     @IBOutlet weak var reikiSessionTableView: UITableView!;
     @IBOutlet weak var nxtButton: UIButton!;
     
+    var selectedServicePlan = ServicePlan();
+    var servicePlans = [ServicePlan]();
     var sessionIntervals = [String]();
     var sessionIntervalValueMap = [String: String]();
     var duration: Int = 1;
     var charges: Int = 100;
     var durationInterval: String = "Day";
     var sessionDurationInMinutes: Int = 20;
+    var loggedInUser: User!;
+    var serviceId: Int32!;
 
     var reikiSessionTableViewCellDelegate: ReikiSessionTableViewCell!;
     override func viewDidLoad() {
@@ -42,6 +46,10 @@ class ReikiSessionViewController: UIViewController {
         self.sessionIntervalValueMap["1 Month"] = "1";
         
         self.tabBarController?.tabBar.isHidden = true;
+        
+        self.loggedInUser = dbHelper.findLoggedInUser();
+        
+        self.makeServicePlansByServiceIdCall();
     }
     
 
@@ -81,6 +89,7 @@ class ReikiSessionViewController: UIViewController {
         } else if (self.durationInterval == "Month") {
             currentTransaction.reikiSession.sessionDays = self.duration*30;
         }
+        
         currentTransaction.reikiSession.sessionInterval = self.sessionDurationInMinutes;
         let viewController = self.storyboard?.instantiateViewController(withIdentifier: "BookAppointmentDateViewController") as! BookAppointmentDateViewController;
         self.navigationController?.pushViewController(viewController, animated: true);
@@ -95,7 +104,15 @@ class ReikiSessionViewController: UIViewController {
         sender.cellRessionCell.twentyMinutesLabel.textColor = UIColor.white;
         sender.cellRessionCell.fortyFiveMinutesLabel.textColor = UIColor.black;
         sender.cellRessionCell.oneHourLabel.textColor = UIColor.black;
-        self.charges = 100;
+        
+        for planItem in self.servicePlans {
+            if (planItem.duration == 20) {
+                self.selectedServicePlan = planItem;
+                self.charges = Int(planItem.fees);
+                break;
+            }
+        }
+                
         self.sessionDurationInMinutes = 20;
 
         var durationIntervalValue = 0;
@@ -116,7 +133,7 @@ class ReikiSessionViewController: UIViewController {
                self.reikiSessionTableViewCellDelegate.numberOfDaysGuide.text = "Number Of Months";
             }
 
-            self.reikiSessionTableViewCellDelegate.chargesLabel.text = "$\(100*durationIntervalValue*self.duration)";
+            self.reikiSessionTableViewCellDelegate.chargesLabel.text = "$\(self.charges*durationIntervalValue*self.duration)";
         }
     }
     
@@ -129,7 +146,13 @@ class ReikiSessionViewController: UIViewController {
         sender.cellRessionCell.twentyMinutesLabel.textColor = UIColor.black;
         sender.cellRessionCell.oneHourLabel.textColor = UIColor.black;
         
-        self.charges = 130;
+        for planItem in self.servicePlans {
+            if (planItem.duration == 45) {
+                self.selectedServicePlan = planItem;
+                self.charges = Int(planItem.fees);
+                break;
+            }
+        }
         self.sessionDurationInMinutes = 45;
 
         var durationIntervalValue = 0;
@@ -165,7 +188,13 @@ class ReikiSessionViewController: UIViewController {
         sender.cellRessionCell.twentyMinutesLabel.textColor = UIColor.black;
         sender.cellRessionCell.oneHourLabel.textColor = UIColor.white;
         
-        self.charges = 150;
+        for planItem in self.servicePlans {
+            if (planItem.duration == 60) {
+                self.selectedServicePlan = planItem;
+                self.charges = Int(planItem.fees);
+                break;
+            }
+        }
         self.sessionDurationInMinutes = 60;
 
         var durationIntervalValue = 0;
@@ -208,22 +237,50 @@ class ReikiSessionViewController: UIViewController {
             if (item.contains("Day")) {
                 self!.durationInterval = "Day";
                 sender.numberOfDaysGuide.text = "Number Of Days";
-                sender.chargesLabel.text = "$\(100*sender.duration)";
+                sender.chargesLabel.text = "$\(self!.charges*sender.duration)";
+                self?.duration = self!.charges*sender.duration;
                 
             } else if (item.contains("Week")) {
                 
                 self!.durationInterval = "Week";
                 sender.numberOfDaysGuide.text = "Number Of Weeks";
-                sender.chargesLabel.text = "$\(130*7*sender.duration)";
+                sender.chargesLabel.text = "$\(self!.charges*7*sender.duration)";
+                self?.duration = self!.charges*7*sender.duration;
+
 
             } else if (item.contains("Month")) {
                 
                 self!.durationInterval = "Month";
                 sender.numberOfDaysGuide.text = "Number Of Months";
-                sender.chargesLabel.text = "$\(150*30*sender.duration)";
+                sender.chargesLabel.text = "$\(self!.charges*30*sender.duration)";
+                self?.duration = self!.charges*30*sender.duration;
+
             }
         }
 
+    }
+    
+    func makeServicePlansByServiceIdCall() {
+        
+        let apiEndpoint = "\(HomeAPI.get_service_plans_by_serviceId)?serviceId=\(serviceId!)";
+        HttpService().makeGetRequest(apiUrl: apiEndpoint, complete: {response in
+            
+            let success = response.value(forKey: APIResponseEnum.STATUS) as! String;
+            if (success == APIResponseEnum.SUCCESS) {
+                
+                let servicePlansArr = response.value(forKey: APIResponseEnum.DATA) as! NSArray;
+                self.servicePlans = ServicePlan().loadFromNSArray(servicePlanArr: servicePlansArr);
+                
+                for servicePlanTmp  in self.servicePlans {
+                    if (servicePlanTmp.duration == 20) {
+                        self.charges = Int(servicePlanTmp.fees);
+                        self.selectedServicePlan = servicePlanTmp;
+                    }
+                }
+                self.reikiSessionTableViewCellDelegate.chargesLabel.text = "$\(self.charges)";
+                self.reikiSessionTableView.reloadData();
+            }
+        });
     }
 }
 
@@ -264,7 +321,7 @@ extension ReikiSessionViewController: UITableViewDelegate, UITableViewDataSource
         cell.twentyMinutesView.addGestureRecognizer(twentyTapGesture);
         
         let fortyFiveTapGesture = SessionTapGesture.init(target: self, action: #selector(fortyFiveMinutesPressed(sender:)));
-        twentyTapGesture.type = "FortyFiveMinutes";
+        fortyFiveTapGesture.type = "FortyFiveMinutes";
         fortyFiveTapGesture.cellRessionCell = cell;
         cell.fortyFiveMinutesView.addGestureRecognizer(fortyFiveTapGesture);
         

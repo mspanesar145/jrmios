@@ -19,11 +19,11 @@ class Notification {
     func loadNotificationDict(notificationDict: NSDictionary) -> Notification {
         
         let notification = Notification();
-        notification.notificationId = notificationDict.value(forKey: "notification_id") as! Int32;
+        notification.notificationId = Int32(notificationDict.value(forKey: "notification_id") as! String)!;
         notification.title = notificationDict.value(forKey: "title") as! String;
         notification.message = notificationDict.value(forKey: "message") as! String;
-        notification.readStatus = notificationDict.value(forKey: "read_status") as! String;
-        notification.createdAt = notificationDict.value(forKey: "created_at") as! Int64;
+        //notification.readStatus = notificationDict.value(forKey: "read_status") as! String;
+        notification.createdAt = Int64(notificationDict.value(forKey: "created_at_timestamp") as! String)!;
         return notification;
     }
     

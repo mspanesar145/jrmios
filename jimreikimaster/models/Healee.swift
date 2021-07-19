@@ -15,5 +15,9 @@ class Healee {
     var address: String!;
     var description: String!;
     var photo: String!;
-    
+    var city: String!;
+    var state: String!;
+    var country: String!;
+    var postalCode: String!;
+
 }

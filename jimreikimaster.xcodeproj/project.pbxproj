@@ -87,6 +87,7 @@
 		5EB966E725D919CC0062F6C3 /* ReikiSessionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5EB966E525D919CC0062F6C3 /* ReikiSessionTableViewCell.xib */; };
 		5EB966E925D927010062F6C3 /* ReikiSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB966E825D927010062F6C3 /* ReikiSessionViewController.swift */; };
 		5EB966EF25E010EA0062F6C3 /* ReikiSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB966EE25E010EA0062F6C3 /* ReikiSession.swift */; };
+		5ED4C5B2268711D0000D7393 /* ServicePlan.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ED4C5B1268711D0000D7393 /* ServicePlan.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -171,6 +172,7 @@
 		5EB966E525D919CC0062F6C3 /* ReikiSessionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReikiSessionTableViewCell.xib; sourceTree = "<group>"; };
 		5EB966E825D927010062F6C3 /* ReikiSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReikiSessionViewController.swift; sourceTree = "<group>"; };
 		5EB966EE25E010EA0062F6C3 /* ReikiSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReikiSession.swift; sourceTree = "<group>"; };
+		5ED4C5B1268711D0000D7393 /* ServicePlan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicePlan.swift; sourceTree = "<group>"; };
 		63A5F5D46A35D102E64F810F /* Pods-jimreikimaster.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jimreikimaster.release.xcconfig"; path = "Target Support Files/Pods-jimreikimaster/Pods-jimreikimaster.release.xcconfig"; sourceTree = "<group>"; };
 		78671AFD75FADDF1137BC68E /* Pods-jimreikimaster.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-jimreikimaster.debug.xcconfig"; path = "Target Support Files/Pods-jimreikimaster/Pods-jimreikimaster.debug.xcconfig"; sourceTree = "<group>"; };
 		A7CADB79A492130A6100485B /* Pods_jimreikimaster.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_jimreikimaster.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -325,6 +327,7 @@
 				5E8E3CA925D1A63D006DE94D /* TimeSlot.swift */,
 				5EB966D225D7A8960062F6C3 /* Healee.swift */,
 				5EB966EE25E010EA0062F6C3 /* ReikiSession.swift */,
+				5ED4C5B1268711D0000D7393 /* ServicePlan.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -660,6 +663,7 @@
 				5E569077253AD27B001896BF /* PaymentSuccessViewController.swift in Sources */,
 				5EB966DF25D81DBC0062F6C3 /* JrmConstants.swift in Sources */,
 				5E6CBF3B25065DC800E0BB8C /* SceneDelegate.swift in Sources */,
+				5ED4C5B2268711D0000D7393 /* ServicePlan.swift in Sources */,
 				5EB966E625D919CC0062F6C3 /* ReikiSessionTableViewCell.swift in Sources */,
 				5E6340CE251EF5410021EFAF /* BookAppointmentPhotoViewController.swift in Sources */,
 				5EA9EC5225370C7200134B06 /* TransactionViewController.swift in Sources */,

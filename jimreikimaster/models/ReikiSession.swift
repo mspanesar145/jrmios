@@ -13,5 +13,4 @@ class ReikiSession {
     var sessionInterval: Int = 0;
     var sessionDays: Int = 0;
     var charges: Int = 0;
-
 }

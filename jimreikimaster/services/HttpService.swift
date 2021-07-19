@@ -50,7 +50,7 @@ class HttpService {
                 case .success(let successResp):
                         
                     returnedDict = response.value as! NSDictionary;
-                
+                    print("Response : \(returnedDict)");
                 case .failure(let error):
                     returnedDict.setValue(false, forKey: "success");
                     returnedDict.setValue(error.localizedDescription, forKey: "message");

@@ -12,5 +12,6 @@ class UserAPI {
     
     public static var post_login_request = "home/loginApi";
     public static var post_signup_request = "home/signupApi";
+    
 
 }
